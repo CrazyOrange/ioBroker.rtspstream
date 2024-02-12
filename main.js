@@ -60,7 +60,7 @@ class rtspstream extends utils.Adapter {
             let player = 'var canvas = document.getElementById(\'video-canvas\');';
             player+= 'var player = new JSMpeg.Player(\'ws://\' + window.location.hostname + \':'+ VideoPort +'\', {loop: true, autoplay: true,canvas: canvas});';
             let div = 'window.onload = ()=>{\ndocument.body.innerHTML = \'<div class="jsmpeg" data-url="ws://\' + window.location.hostname + \':9999" data-loop="true" data-autoplay="true"></div>\';}';
-            let dataPointView1 = '<body><canvas id="video-canvas"></canvas><script>' + JSMpeg + player + '</script></body>';
+            let dataPointView1 = '<!DOCTYPE html><html><head><style>body {    display: flex;    justify-content: center;    align-items: center;    height: 100vh;    margin: 0;    padding: 0;    overflow: hidden;} #video-canvas {    position: fixed;    min-width: 100%;    min-height: 100%;}</style></head><body><canvas id="video-canvas"></canvas><script>' + JSMpeg + player + '</script></body></html>';
             Adapter.log.info('Stream ' + channels[idx].common.name + ' starting Server on Port ' + Port.val);
             let server = http.createServer(function (req, res) {
                 res.write(dataPointView1);
