@@ -106,11 +106,12 @@ class rtspstream extends utils.Adapter {
         if(state && !state.ack){
             if(action === 'startStream' && state.val)
             {
-                if(streams[name]["stream"] !== undefined)
+                if(streams[name]["stream"] !== undefined && !streams[name]["stream"].paused)
                 {
                     Adapter.log.info("Stream: " + name + " already running, skipping.");
                     return;
                 }
+                
                 let resolution = await Adapter.getStateAsync(Adapter.namespace + '.' + name + '.resolution');
                 let rtspUrl = await Adapter.getStateAsync(Adapter.namespace + '.' + name + '.rtspUrl');
                 let width, height, size = resolution.val.match(/\d+x\d+/);
