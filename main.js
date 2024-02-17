@@ -106,7 +106,7 @@ class rtspstream extends utils.Adapter {
         if(state && !state.ack){
             if(action === 'startStream' && state.val)
             {
-                if(streams[name]["stream"] !== undefined && !streams[name]["stream"].paused)
+                if(streams[name]["stream"] !== undefined && streams[name]["stream"].inputStreamStarted)
                 {
                     Adapter.log.info("Stream: " + name + " already running, skipping.");
                     return;
