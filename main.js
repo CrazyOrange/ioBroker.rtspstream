@@ -97,18 +97,18 @@ class rtspstream extends utils.Adapter {
     async onStateChange(id, state){
         const Adapter = this;
         if(!state) return;
-        Adapter.log.debug("State Change: " + id + " to " + state.val + " ack " + state.ack);
+        Adapter.log.info("State Change: " + id + " to " + state.val + " ack " + state.ack);
 
         const currentId = id.substring(Adapter.namespace.length + 1);
         const action = currentId.substr(currentId.indexOf('.')+1);
         const name = currentId.substr(0,currentId.indexOf('.'));
-        Adapter.log.debug("Action: "+ action+ ' Name: '+name + "State" + state.val);
+        Adapter.log.info("Action: "+ action+ ' Name: '+name + "State" + state.val);
         if(state && !state.ack){
             if(action === 'startStream' && state.val)
             {
                 if(streams[name]["stream"] !== undefined)
                 {
-                    Adapter.log.debug("Stream: " + name + " already running, skipping.");
+                    Adapter.log.info("Stream: " + name + " already running, skipping.");
                     return;
                 }
                 let resolution = await Adapter.getStateAsync(Adapter.namespace + '.' + name + '.resolution');
